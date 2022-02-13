@@ -4,10 +4,11 @@ import java.util.List;
 
 import com.sesp.patrimonio.app.models.Patrimony;
 import com.sesp.patrimonio.app.repository.PatrimonyRepository;
+import com.sesp.patrimonio.app.services.PatrimonyService;
 
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +19,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class PatrimonyController {
 
+    private PatrimonyService patrimonyService;
+
     private final PatrimonyRepository patrimonyRepository; 
 
     @GetMapping
@@ -25,20 +28,12 @@ public class PatrimonyController {
         return patrimonyRepository.findAll() ;
     }
 
-    @Bean
-    CommandLineRunner initDatabase(PatrimonyRepository patrimonyRepository){
-        return args -> {
-            patrimonyRepository.deleteAll();
-
-            Patrimony p = new Patrimony();
-            p.setDescription("Hello World");
-            p.setPatrimonio("Banana");
-            p.setSituation("World");
-            p.setValue("Value mui alto");
-
-
-            patrimonyRepository.save(p);
-        };
+    @GetMapping(value="/{id}")
+    public ResponseEntity<Patrimony> findById(@PathVariable Long id) {
+        Patrimony obj = patrimonyService.findById(id);
+        return ResponseEntity.ok().body(obj);
     }
     
 }
+
+//localhost:8080/categorias
