@@ -18,7 +18,10 @@ public class Patrimony implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long item;
+    private Long id;
+
+    @Column(length = 150, nullable = false)
+    private String name;
 
     @Column(length = 200, nullable = false)
     private String description;
@@ -31,4 +34,7 @@ public class Patrimony implements Serializable{
 
     @Column(length = 50, nullable = false)
     private String value;
+
+    @Column(length = 50, nullable = false)
+    private String setor;
 }

@@ -18,16 +18,18 @@ public class DBService {
 
 
 
-            patrimonyRepository.deleteAll();
+            this.patrimonyRepository.deleteAll();
 
             Patrimony p = new Patrimony();
             p.setDescription("Hello World");
             p.setPatrimonio("Banana");
             p.setSituation("World");
+            p.setName("Namezada");
             p.setValue("Value mui alto");
+            p.setSetor("Setor");
 
 
-            patrimonyRepository.save(p);
+            this.patrimonyRepository.save(p);
 
 
     }
