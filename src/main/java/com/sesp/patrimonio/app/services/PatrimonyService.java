@@ -41,7 +41,7 @@ public class PatrimonyService {
         newObj.setDescription(obj.getDescription());
         newObj.setPatrimonio(obj.getPatrimonio());
         newObj.setSituation(obj.getSituation());
-        newObj.setValue(obj.getValue());
+        //newObj.setValue(obj.getValue());
         newObj.setSetor(obj.getSetor());
 
         return patrimonioRepository.save(newObj);

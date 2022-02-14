@@ -25,7 +25,7 @@ public class DBService {
             p.setPatrimonio("Banana");
             p.setSituation("World");
             p.setName("Namezada");
-            p.setValue("Value mui alto");
+            //p.setValue("Value mui alto");
             p.setSetor("Setor");
 
 
