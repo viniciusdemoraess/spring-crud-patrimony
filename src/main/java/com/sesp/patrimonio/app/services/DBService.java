@@ -20,16 +20,15 @@ public class DBService {
 
             this.patrimonyRepository.deleteAll();
 
-            Patrimony p = new Patrimony();
-            p.setDescription("Hello World");
-            p.setPatrimonio("Banana");
-            p.setSituation("World");
-            p.setName("Namezada");
-            //p.setValue("Value mui alto");
-            p.setSetor("Setor");
+            // Patrimony p = new Patrimony();
+            // p.setDescription("Hello World");
+            // p.setPatrimonio("Banana");
+            // p.setSituation("World");
+            // p.setName("Namezada");
+            // p.setSetor("Setor");
 
 
-            this.patrimonyRepository.save(p);
+            // this.patrimonyRepository.save(p);
 
 
     }

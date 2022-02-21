@@ -15,6 +15,15 @@ public class PatrimonyDTO implements Serializable {
 
     private String description;
 
+    private String patrimonio;
+
+    private String situation;
+
+    private String setor;
+
+
+
+
     public PatrimonyDTO(){
         super();
     }
@@ -24,6 +33,9 @@ public class PatrimonyDTO implements Serializable {
         this.id = obj.getId();
         this.name = obj.getName();
         this.description = obj.getDescription();
+        this.patrimonio = obj.getPatrimonio();
+        this.situation = obj.getSituation();
+        this.setor = obj.getSetor();
     }
     
 }

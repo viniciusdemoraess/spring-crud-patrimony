@@ -2,17 +2,17 @@ package com.sesp.patrimonio.app.controller;
 
 import java.net.URI;
 import java.util.List;
-// // import java.util.stream.Collector;
-// import java.util.stream.Collectors;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 // import javax.servlet.Servlet;
 
 import com.sesp.patrimonio.app.models.Patrimony;
-// import com.sesp.patrimonio.app.repository.PatrimonyRepository;
+//import com.sesp.patrimonio.app.repository.PatrimonyRepository;
 import com.sesp.patrimonio.app.services.PatrimonyService;
-// import com.sesp.patrimonio.app.dtos.PatrimonyDTO;
+import com.sesp.patrimonio.app.dtos.PatrimonyDTO;
 
 
 import org.springframework.http.ResponseEntity;
@@ -41,11 +41,11 @@ public class PatrimonyController {
     // private final PatrimonyRepository patrimonyRepository; 
 
     @GetMapping
-    public ResponseEntity<List<Patrimony>> findAll(){
+    public ResponseEntity<List<PatrimonyDTO>> findAll(){
         List<Patrimony> list = patrimonyService.findAll();
         //Caso queira retornar o OBJ DTO
-       // List<PatrimonyDTO> listDTO = list.stream().map(obj -> new PatrimonyDTO(obj)).collect(Collectors.toList());
-        return ResponseEntity.ok().body(list);
+        List<PatrimonyDTO> listDTO = list.stream().map(obj -> new PatrimonyDTO(obj)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDTO);
     }
 
     @GetMapping(value="/{id}")
