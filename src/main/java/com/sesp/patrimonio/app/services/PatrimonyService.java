@@ -1,8 +1,10 @@
 package com.sesp.patrimonio.app.services;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
+import com.sesp.patrimonio.app.dtos.PatrimonyDTO;
 import com.sesp.patrimonio.app.models.Patrimony;
 import com.sesp.patrimonio.app.repository.PatrimonyRepository;
 import com.sesp.patrimonio.app.services.exceptions.ObjectNotFoundException;
@@ -31,26 +33,33 @@ public class PatrimonyService {
     public Patrimony create(Patrimony obj){
         obj.setId(null);
         return patrimonioRepository.save(obj);
-
     }
 
-    public Patrimony update(Long id, Patrimony obj) {
-        Patrimony newObj = findById(id);
+    public Patrimony update(Long id, PatrimonyDTO objDto) {
+        Patrimony obj = findById(id);
 
-        newObj.setName(obj.getName());
-        newObj.setDescription(obj.getDescription());
-        newObj.setPatrimonio(obj.getPatrimonio());
-        newObj.setSituation(obj.getSituation());
-        //newObj.setValue(obj.getValue());
-        newObj.setSetor(obj.getSetor());
+        obj.setName(objDto.getName());
+        obj.setDescription(objDto.getDescription());
+        obj.setPatrimonio(objDto.getPatrimonio());
+        obj.setSituation(objDto.getSituation());
+        obj.setSetor(objDto.getSetor());
 
-        return patrimonioRepository.save(newObj);
+        return patrimonioRepository.save(obj);
     }
 
     public void delete(Long id) {
         findById(id);
         patrimonioRepository.deleteById(id);
     }
+
+    public Patrimony findByPatrimonio(String patrimonio) {
+        Patrimony obj = patrimonioRepository.findByPatrimonio(patrimonio);
+        if (Objects.isNull(obj)){
+            throw new ObjectNotFoundException("Patrimônio não encontrado!");
+        }
+        return obj;
+        
+    }   
 
     
 }

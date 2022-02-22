@@ -2,24 +2,21 @@ package com.sesp.patrimonio.app.controller;
 
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-// import javax.servlet.Servlet;
 
 import com.sesp.patrimonio.app.models.Patrimony;
-//import com.sesp.patrimonio.app.repository.PatrimonyRepository;
 import com.sesp.patrimonio.app.services.PatrimonyService;
 import com.sesp.patrimonio.app.dtos.PatrimonyDTO;
 
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -38,13 +35,12 @@ public class PatrimonyController {
 
     private PatrimonyService patrimonyService;
 
-    // private final PatrimonyRepository patrimonyRepository; 
 
     @GetMapping
     public ResponseEntity<List<PatrimonyDTO>> findAll(){
         List<Patrimony> list = patrimonyService.findAll();
-        //Caso queira retornar o OBJ DTO
-        List<PatrimonyDTO> listDTO = list.stream().map(obj -> new PatrimonyDTO(obj)).collect(Collectors.toList());
+        //Caso queira retornar o OBJ DTO 
+        List<PatrimonyDTO> listDTO = list.stream().map(PatrimonyDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
     }
 
@@ -54,6 +50,14 @@ public class PatrimonyController {
         return ResponseEntity.ok().body(obj);
     }  
 
+
+    @GetMapping(value="/searchByPatrimony/{codigoBem}")
+    public ResponseEntity<Patrimony> findByName(@PathVariable String codigoBem) {
+        Patrimony obj = patrimonyService.findByPatrimonio(codigoBem);
+        return ResponseEntity.ok().body(obj);
+    }  
+
+
     @PostMapping
     public ResponseEntity<Patrimony> create(@Valid @RequestBody Patrimony obj) {
         obj = patrimonyService.create(obj);
@@ -62,13 +66,14 @@ public class PatrimonyController {
     }
 
     @PutMapping(value="/{id}")
-    public ResponseEntity<Patrimony> update(@PathVariable Long id, @Valid @RequestBody  Patrimony obj) {
-        Patrimony newObj = patrimonyService.update(id, obj);
-        return ResponseEntity.ok().body(newObj);
+    @Transactional
+    public ResponseEntity<PatrimonyDTO> update(@PathVariable Long id, @Valid @RequestBody PatrimonyDTO objDto) {
+        Patrimony newObj = patrimonyService.update(id, objDto);
+        return ResponseEntity.ok().body(new PatrimonyDTO(newObj));
     }
 
     @DeleteMapping(value="/{id}")
-    public ResponseEntity<Patrimony> delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id){
         patrimonyService.delete(id);
         return ResponseEntity.noContent().build();
 

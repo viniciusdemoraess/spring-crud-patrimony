@@ -1,13 +1,11 @@
 package com.sesp.patrimonio.app.repository;
 
-import com.sesp.patrimonio.app.models.Patrimony;
+import com.sesp.patrimonio.app.models.ImageField;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PatrimonyRepository extends JpaRepository<Patrimony, Long>{
-
-    Patrimony findByPatrimonio(String patrimonio);
+public interface ImageRepository extends JpaRepository<ImageField, Long>{
     
 }

@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Data
@@ -50,6 +52,8 @@ public class Patrimony implements Serializable{
     @Size(min= 2, max = 20, message="Campo SETOR deve ter entre 5 e 20 Caracteres")
     private String setor;
 
-    // @OneToMany(mappedBy="ImageUrl")
-    // private List<Image> images = new ArrayList<>();
+    @Column(nullable = true)
+    @OneToMany(mappedBy="patrimony")
+    private List<ImageField> images = new ArrayList<>();
+
 }
