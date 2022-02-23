@@ -23,7 +23,7 @@ public class ImageService {
 
     private PatrimonyService patrimonyService;
 
-    public ImageField findById(Long id) {
+    public ImageField findById(String id) {
         Optional<ImageField> obj = imageRepository.findById(id);
         return obj.orElseThrow( 
             () -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + ImageField.class.getName())
@@ -34,9 +34,8 @@ public class ImageService {
         return imageRepository.findAll();
     }
 
-    public ImageField create(Long id_patri, ImageField obj){
-        // obj.setId(null);
-
+    public ImageField create(String id_patri, ImageField obj){
+        obj.setId(null);
         Patrimony patri = patrimonyService.findById(id_patri);
         obj.setPatrimony(patri);
 
@@ -44,7 +43,7 @@ public class ImageService {
 
     }
 
-    public ImageField update(Long id, ImageDTO objDto) {
+    public ImageField update(String id, ImageDTO objDto) {
         ImageField obj = findById(id);
 
         obj.setImageUrl(objDto.getImageURL());
@@ -52,7 +51,7 @@ public class ImageService {
         return imageRepository.save(obj) ;
     }
 
-    public void delete(Long id) {
+    public void delete(String id) {
         findById(id);
         imageRepository.deleteById(id);
     }

@@ -2,36 +2,40 @@ package com.sesp.patrimonio.app.models;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
+
+// import com.fasterxml.jackson.annotation.JsonIgnore;
+
+// import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.annotation.Id;
+
 import lombok.Data;
 
-@Entity
 @Data
+@Document
 public class ImageField  implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private String id;
 
-    @Column()
     @NotNull(message="Campo PATRIMONIO é requerido")
     @Size(min = 17, max = 350)
     private String imageUrl;
 
-    @JsonIgnore
-    @ManyToOne
+    // @JsonIgnore
+    // @DBRef
+    // @JsonIgnore
+    // @ManyToMany
+    @DBRef
     private Patrimony patrimony;
 
 }

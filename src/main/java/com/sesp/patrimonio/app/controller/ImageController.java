@@ -47,16 +47,16 @@ public class ImageController {
     }
 
     @GetMapping(value="/{id}")
-    public ResponseEntity<ImageField> findById(@PathVariable Long id) {
+    public ResponseEntity<ImageField> findById(@PathVariable String id) {
         ImageField obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
     }  
 
     @PostMapping
-    public ResponseEntity<ImageField> create(@RequestParam(value="patrimony", defaultValue = "0") @Valid Long id_patr,
-        @Valid @RequestBody ImageField obj
-        ){
-        ImageField newObj = service.create(id_patr, obj);
+    public ResponseEntity<ImageField> create(@RequestParam(value="patrimony", defaultValue = "0") @Valid String id_patri,
+        @Valid @RequestBody ImageField obj){
+
+        ImageField newObj = service.create(id_patri, obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/image/{id}").buildAndExpand(newObj.getId()).toUri();
 
         return ResponseEntity.created(uri).build();
@@ -71,13 +71,13 @@ public class ImageController {
 
     @PutMapping(value="/{id}")
     @Transactional
-    public ResponseEntity<ImageDTO> update(@PathVariable Long id, @Valid @RequestBody ImageDTO objDto) {
+    public ResponseEntity<ImageDTO> update(@PathVariable String id, @Valid @RequestBody ImageDTO objDto) {
         ImageField newObj = service.update(id, objDto);
         return ResponseEntity.ok().body(new ImageDTO(newObj));
     }
 
     @DeleteMapping(value="/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable String id){
         service.delete(id);
         return ResponseEntity.noContent().build();
 

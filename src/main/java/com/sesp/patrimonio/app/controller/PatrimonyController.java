@@ -45,7 +45,7 @@ public class PatrimonyController {
     }
 
     @GetMapping(value="/{id}")
-    public ResponseEntity<Patrimony> findById(@PathVariable Long id) {
+    public ResponseEntity<Patrimony> findById(@PathVariable String id) {
         Patrimony obj = patrimonyService.findById(id);
         return ResponseEntity.ok().body(obj);
     }  
@@ -67,13 +67,13 @@ public class PatrimonyController {
 
     @PutMapping(value="/{id}")
     @Transactional
-    public ResponseEntity<PatrimonyDTO> update(@PathVariable Long id, @Valid @RequestBody PatrimonyDTO objDto) {
+    public ResponseEntity<PatrimonyDTO> update(@PathVariable String id, @Valid @RequestBody PatrimonyDTO objDto) {
         Patrimony newObj = patrimonyService.update(id, objDto);
         return ResponseEntity.ok().body(new PatrimonyDTO(newObj));
     }
 
     @DeleteMapping(value="/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable String id){
         patrimonyService.delete(id);
         return ResponseEntity.noContent().build();
 

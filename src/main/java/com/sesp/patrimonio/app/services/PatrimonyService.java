@@ -19,7 +19,7 @@ public class PatrimonyService {
 
     private PatrimonyRepository patrimonioRepository;
 
-    public Patrimony findById(Long id) {
+    public Patrimony findById(String id) {
         Optional<Patrimony> obj = patrimonioRepository.findById(id);
         return obj.orElseThrow( 
             () -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Patrimony.class.getName())
@@ -35,7 +35,7 @@ public class PatrimonyService {
         return patrimonioRepository.save(obj);
     }
 
-    public Patrimony update(Long id, PatrimonyDTO objDto) {
+    public Patrimony update(String id, PatrimonyDTO objDto) {
         Patrimony obj = findById(id);
 
         obj.setName(objDto.getName());
@@ -47,7 +47,7 @@ public class PatrimonyService {
         return patrimonioRepository.save(obj);
     }
 
-    public void delete(Long id) {
+    public void delete(String id) {
         findById(id);
         patrimonioRepository.deleteById(id);
     }
